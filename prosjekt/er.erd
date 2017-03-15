@@ -18,8 +18,8 @@
 </entity>
 <entity id="4" is_weak="false" name="Inneøkt" x="653" y="98">
 <attributes>
-<attribute is_hidden="false" is_key="false" name="Luft" type=""/>
-<attribute is_hidden="false" is_key="false" name="Tilskuere" type=""/>
+<attribute is_hidden="false" is_key="false" name="luft" type=""/>
+<attribute is_hidden="false" is_key="false" name="tilskuere" type=""/>
 </attributes>
 </entity>
 <entity id="7" is_weak="false" name="Øvelse" x="196" y="47">

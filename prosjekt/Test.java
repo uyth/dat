@@ -1,56 +1,51 @@
 package treningsdagbok;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.Logger;
-import com.jcraft.jsch.Session;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
-import java.util.Scanner;
+import java.sql.Statement;
+
+
 
 public class Test {
-
-    private Connection connection;
-    public Test(){
-        try{
-            connection = connect();
-            System.out.println("CONNECTED TO DATABASE");
-        }
-        catch (Exception e){
-            System.out.println(e);
-        }
-    }
-
-
-    public static Connection connect() throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        String serverName = "localhost";
-        String databaseName = "TRENINGSDAGBOK";
-
-        String url = "jdbc:mysql://" + serverName + "/" + databaseName + "?autoReconnect=true&useSSL=false";
-
-        String username = "root";
-        String password = "root";
-
-        Connection connection = DriverManager.getConnection(url, username, password);
-        return connection;
-    }
+	
+	Connection conn = null;
+	Statement stmt = null;
+	ResultSet rs = null;
+	//mysql.stud.ntnu.no
+	//127.0.0.1
+	public void connect() {
+		try  {
+			conn = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no/uyth_treningsdagbok?useSSL=false&user=tdvo&password=root");
+		}
+		catch (SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+		}
+	}
+	
+	public void find() {
+		try {
+			stmt = conn.createStatement();
+			String query = "SELECT * FROM TRENING";
+			if (stmt.execute(query)) {
+				rs = stmt.getResultSet();
+			}
+			while (rs.next()) {
+				String col1 = rs.getString(1);
+				String col2 = rs.getString(2);
+				System.out.println(col1 + " - " + col2);
+			}
+		}
+		catch (SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+		}
+	}
 
     public static void main(String[] args) {
-    	
-//        try {
-//            Test.ssh();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     	Test t = new Test();
-    	Scanner scanner = new Scanner(System.in);
-    	String sql = scanner.next();
-    	String statement = connect().prepareStatement("");
-    			
-    			t.connect().prepareStatement(sql);
-    	t.connect().prepareStatement()
-    }
+    	t.connect();
+    	t.find();
+	}
+    
 }
